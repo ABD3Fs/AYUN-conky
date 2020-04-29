@@ -1,0 +1,132 @@
+--[[
+Conky, un monitor de sistema, basado en Torsmo
+
+Cualquier código original de Torsmo está licenciado bajo licencia BSD
+
+Todo el código escrito desde el fork de Torsmo está licenciado bajo la GPL
+
+Por favor, vea COPYING para más detalles
+
+Copyright (c) 2004, Hannu Saransaari y Lauri Hakkarainen
+Copyright (c) 2005-2019 Brenden Matthews, Philip Kovacs, et. al. (véase AUTORES)
+Todos los derechos reservados.
+
+Este programa es software libre: puedes redistribuirlo y/o modificar
+bajo los términos de la Licencia Pública General de GNU, publicada por
+la Fundación de Software Libre, ya sea la versión 3 de la Licencia, o
+(a su elección) cualquier versión posterior.
+
+Este programa se distribuye con la esperanza de que sea útil,
+pero SIN NINGUNA GARANTÍA; sin siquiera la garantía implícita de
+COMERCIALIZACIÓN o APTITUD PARA UN PROPÓSITO PARTICULAR.  Vea la
+Licencia Pública General de GNU para más detalles.
+Debería haber recibido una copia de la Licencia Pública General de GNU
+junto con este programa.  Si no es así, vea <http://www.gnu.org/licenses/>.
+]]
+
+conky.config = {
+    alignment = 'top_left',
+    background = false,
+    border_width = 50,
+    cpu_avg_samples = 12,
+    default_color = '#16A085',
+    color2 = '#FF5500',
+    default_outline_color = '#FFFFFF',
+    default_shade_color = '#FFFFFF',
+    draw_borders = false,
+    draw_graph_borders = true,
+    draw_outline = false,
+    draw_shades = false,
+    use_xft = true,
+    font = 'Comfortaa:size=9',
+    gap_x = 0,
+    gap_y = 0,
+    minimum_height = 0,
+    maximum_width = 320,
+    net_avg_samples = 2,
+    no_buffers = false,
+    double_buffer = true,
+    out_to_console = false,
+    out_to_ncurses = false,
+    out_to_stderr = false,
+    out_to_x = true,
+    extra_newline = true,
+    own_window = true,
+    own_window_class = 'Conky',
+    own_window_type = 'panel',
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+    stippled_borders = 0,
+    update_interval = 1,
+    uppercase = false,
+    use_spacer = 'none',
+    show_graph_scale = false,
+    show_graph_range = false
+}
+
+
+
+
+
+conky.text = [[
+
+${font Comfortaa:size=20}${time %H}:${time %M}:$color2 ${font Comfortaa:size=10}${time %S}${font}${offset 50}$color${font Comfortaa:size=10}${time %A} ${time %e} ${time %B}, $color2 ${time %Y}$font $color
+
+${font Comfortaa:size=14}${offset 0}S I S T E M A $color2 ${font ConkyColorsLogos:size=20}a$font$color${hr 4} $font
+	$color2${font Orore:size=10}d$color$font Nombre de PC: $alignr$nodename
+	$color2${font ConkyColors:size=10}e$color$font Kernel: $alignr AYÜN ${exec uname}
+	$color2${font Orore:size=10}N$color$font Nvidia: $alignr${execp  nvidia-smi --query-supported-clocks=gpu_name --format=csv,noheader}
+	$color2${font ConkyColors:size=10}z$color$font Nvidia Driver: $alignr${execi 60000 nvidia-smi | grep "Driver Version"| awk {'print $3'}}
+	$color2${font Orore:size=10}P$color$font Activo: $alignr$uptime
+	$color2${font ConkyColors:size=10}5$color$font Batería: $alignr${battery_short BAT0}$alignr
+
+${font Comfortaa:size=14}P R O C E S A D O R E S $color2 ${font ConkyColorsLogos:size=20}i$color$font${hr 4}$font
+	$color2${font Orore:size=10}B$color$font Frecuencia de CPU: $alignr${freq_g}GHz
+	$color2${font ConkyColors:size=10}7$color$font Temperatura de CPU: $alignr${execi 10 sensors | grep 'Core 0' | awk {'print $3'}}
+	$color2${font ConkyColors:size=10}l$color$font Historial: $alignr$color2${cpugraph 8,100}$color
+
+	$color2${font ConkyColors:size=10}A$color $font ${offset -5} CPU Núcleo 1: $alignr${offset -10}${cpu cpu1}%$alignr$color2${cpubar 8,100 cpu1}$color
+	${offset 30}${voffset 0}CPU Núcleo 2: $alignr${offset -10}${cpu cpu2}%$alignr$color2${cpubar 8,100 cpu2}$color
+	${offset 30}${voffset 0}CPU Núcleo 3: $alignr${offset -10}${cpu cpu3}%$alignr$color2${cpubar 8,100 cpu3}$color
+	${offset 30}${voffset 0}CPU Núcleo 4: $alignr${offset -10}${cpu cpu4}%$alignr$color2${cpubar 8,100 cpu4}$color
+	${offset 30}${voffset 0}CPU Núcleo 5: $alignr${offset -10}${cpu cpu5}%$alignr$color2${cpubar 8,100 cpu5}$color
+	${offset 30}${voffset 0}CPU Núcleo 6: $alignr${offset -10}${cpu cpu6}%$alignr$color2${cpubar 8,100 cpu6}$color
+	${offset 30}${voffset 0}CPU Núcleo 7: $alignr${offset -10}${cpu cpu7}%$alignr$color2${cpubar 8,100 cpu7}$color
+	${offset 30}${voffset 0}CPU Núcleo 8: $alignr${offset -10}${cpu cpu8}%$alignr$color2${cpubar 8,100 cpu8}$color
+	${offset 30}${voffset 0}CPU Núcleo 9: $alignr${offset -10}${cpu cpu9}%$alignr$color2${cpubar 8,100 cpu9}$color
+	${offset 30}${voffset 0}CPU Núcleo 10: $alignr${offset -10}${cpu cpu10}%$alignr$color2${cpubar 8,100 cpu10}$color
+	${offset 30}${voffset 0}CPU Núcleo 11: $alignr${offset -10}${cpu cpu11}%$alignr$color2${cpubar 8,100 cpu11}$color
+	${offset 30}${voffset 0}CPU Núcleo 12: $alignr${offset -10}${cpu cpu12}%$alignr$color2${cpubar 8,100 cpu12}$color
+
+	$color2 ${font ConkyColors:size=10}l$color$font Top Procesos $alignr${goto 200}proc id ${goto 260}cpu% ${goto 320}mem
+	1 - ${top name 1}${alignr}${goto 220}${top pid 1} ${goto 280}${top cpu 1} ${goto 340}${top mem 1}
+	2 - ${top name 2}${alignr}${goto 220}${top pid 2} ${goto 280}${top cpu 2} ${goto 340}${top mem 2}
+	3 - ${top name 3}${alignr}${goto 220}${top pid 3} ${goto 280}${top cpu 3} ${goto 340}${top mem 3}
+
+${font Comfortaa:size=14}M E M O R I A  $color2 ${font ConkyColors:size=20}g$color$font${hr 4}$font
+	$color2 ${font Orore:size=18}M$color$font${offset 8}${voffset -12}RAM: $alignr${offset -10}$mem / $memmax$alignr$color2${membar 8,100}$color
+	${offset 35}Swap: $alignr${offset -10}$swap / $swapmax$alignr$color2${swapbar 8,100}$color
+	$color2${font ConkyColors:size=10}l$color$font Top Procesos$alignr${goto 220}proc id ${goto 280}cpu% ${goto 340}mem%
+	1 - ${top_mem name 1}$alignr${goto 220}${top_mem pid 1} ${goto 280}${top_mem cpu 1} ${goto 340}${top_mem mem 1}
+	2 - ${top_mem name 2}$alignr${goto 220}${top_mem pid 2} ${goto 280}${top_mem cpu 2} ${goto 340}${top_mem mem 2}
+	3 - ${top_mem name 3}$alignr${goto 220}${top_mem pid 3} ${goto 280}${top_mem cpu 3} ${goto 340}${top_mem mem 3}
+
+${font Comfortaa:size=14}D I S C O S  $color2${font ConkyColors:size=20}h$color$font${hr 4}$font
+Root - SSD: $alignr${offset -10}${fs_used /} / ${fs_size /}$alignr$color2${fs_bar 8,100 /}$color
+	Lectura: $alignr${offset -10}${diskio_read /}$alignr$color2${diskiograph_read / 8,100}$color
+	Escritura: $alignr${offset -10}${diskio_write /}$alignr$color2${diskiograph_write / 8,100}$color
+Home - HDD: $alignr${offset -10}${fs_used /home/abd3fs} / ${fs_size /home/abd3fs}$alignr$color2${fs_bar 8,100 /home/abd3fs}$color
+	Lectura: $alignr${offset -10}${diskio_read /home/abd3fs}$alignr$color2${diskiograph_read /home/abd3fs 8,100}$color
+	Escritura: $alignr${offset -10}${diskio_write /home/abd3fs}$alignr$color2${diskiograph_write /home/abd3fs 8,100}$color
+
+${font Comfortaa:size=14}R E D E S  $color2${font Orore:size=20}I$color$font IP:${addr wlo1} ${hr 4}$font
+	Wi-Fi Bajada: $alignr${offset -10$}${downspeed wlo1}$alignr$color2${downspeedgraph wlo1 8,100}$color
+	Wi-Fi Subida: $alignr${offset -10$}${upspeed wlo1}$alignr$color2${upspeedgraph wlo1 8,100}$color
+
+${font Comfortaa:size=14}N V I D I A   $color2${font ConkyColorsLogos:size=20}n$color$font${hr 4}$font
+	${offset 100}${execp  nvidia-smi --query-supported-clocks=gpu_name --format=csv,noheader}$font
+	GPU Temp $alignr${execi 60 nvidia-smi --query-gpu=temperature.gpu --format=csv,noheader} °C
+	GPU Clock $alignr${execi 60 nvidia-settings -q GPUCurrentClockFreqs | grep -m 1 Attribute | awk '{print $4}' | sed -e 's/\.//' | cut -d, -f1} MHz
+	Mem Used $alignr${execi 60 nvidia-settings -q [gpu:0]/UsedDedicatedGPUMemory -t} / ${exec nvidia-settings -q [gpu:0]/TotalDedicatedGPUMemory -t} MiB0
+]]
